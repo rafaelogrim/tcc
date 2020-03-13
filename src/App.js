@@ -1,17 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+// import logo from './logo.svg';
+// import './App.css';
+import {connect} from "react-redux";
 import {Route, BrowserRouter, Switch} from "react-router-dom";
-import Home from "./view/Home";
+import {bindActionCreators} from "redux";
 
-function App() {
-    return (
-        <BrowserRouter>
-            <Switch>
-                <Route path="/" component={Home}/>
-            </Switch>
-        </BrowserRouter>
-    );
+import Home from "./view/Home";
+import Register from "./view/Register";
+import PrivateRoute from './view/components/PrivateRoute';
+
+class App extends Component {
+    render() {
+        return (
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/" component={Home}/>
+                    <PrivateRoute exact path="/register" component={Register}/>
+                </Switch>
+            </BrowserRouter>
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = ({}) => ({
+    // paths: Auth.paths
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
