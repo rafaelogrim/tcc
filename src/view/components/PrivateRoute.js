@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {Route, withRouter} from "react-router-dom";
-import * as loginAction from '../../action/login.action';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 // import FirstAccess from "../FirstAccess";
 
+import * as authAction from '../../action/auth.action';
+
 const mapStateToProps = (/*{Auth}*/) => ({/*...Auth*/});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    loginAction
+    ...authAction,
 }, dispatch);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
@@ -24,7 +25,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
 
         checkAuth(path) {
             this.setState({isAuthenticated: null}, async () => {
-                const response = await this.props.loginAction.checkAuth(path);
+                const response = await this.props.checkAuth(path);
                 if (response) this.setState({isAuthenticated: response.firstAccess ? 'firstAccess' : true});
             });
         }
@@ -35,9 +36,8 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
         }
 
         componentDidMount() {
-
-            console.log('componentDidMount',)
-            // this.checkAuth(this.props.path);
+            // console.log('componentDidMount',)
+            this.checkAuth(this.props.path);
         }
 
         render() {

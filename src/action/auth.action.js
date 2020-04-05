@@ -1,11 +1,16 @@
-export const login = (form) => async (dispatch) => {
+import {SHOW} from "../constant/auth.constant";
 
+export const login = (form) => async (dispatch) => {
 
 
 };
 
 export const checkAuth = (path) => async (dispatch) => {
-    dispatch({type: SHOW});
+    console.log('>>', path);
+    dispatch({
+        type: SHOW
+    });
+    /*dispatch({type: SHOW});
     try {
         const {payload} = await API.isAuthenticated();
         dispatch({type: SAVE, payload});
@@ -20,5 +25,5 @@ export const checkAuth = (path) => async (dispatch) => {
     } catch (e) {
         if (path) window.location.href = `/login?redirect=${path}`;
         throw e;
-    }
+    }*/
 };

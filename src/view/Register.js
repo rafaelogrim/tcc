@@ -1,7 +1,6 @@
 import {connect} from 'react-redux'
 // import {increment, decrement, reset} from './actionCreators'
 import React, {Component} from "react";
-import * as loginAction from '../action/login.action';
 import {bindActionCreators} from "redux";
 import {withRouter} from "react-router-dom";
 
@@ -18,9 +17,7 @@ class Register extends Component {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-    loginAction
-}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
 
 export default withRouter(connect(
     mapStateToProps,
