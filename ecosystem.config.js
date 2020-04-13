@@ -1,7 +1,7 @@
 module.exports = {
     apps: [{
         name: 'projeto-inst',
-        script: 'www',
+        script: 'index.js',
         args: '',
         instances: 1,
         autorestart: true,

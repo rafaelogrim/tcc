@@ -18,12 +18,12 @@ const login = (req, res, next) => {
 
 const logout = (req, res) => {
     req.logout();
-    res.clearCookie('browser__pcm__5__api');
+    // res.clearCookie('browser__pcm__5__api');
     req.session.destroy();
     res.finish();
 };
 
-module.exports.isAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.status(401).end();
+const isAuthenticated = (req, res, next) => req.isAuthenticated() ? next() : res.status(401).end();
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -62,4 +62,5 @@ passport.deserializeUser(async (id, done) => {
 module.exports = {
     login,
     logout,
+    isAuthenticated,
 };

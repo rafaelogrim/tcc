@@ -27,7 +27,7 @@ const User = mongoose.connection.model('User', schema);
 
         await User.create({
             name: 'Rafael Ogrim',
-            email: 'rafael.ogrim@paxbr.com.br',
+            email: 'rafael.ogrim@gmail.com',
             access: 'adm',
             firstAccess: true,
             password,

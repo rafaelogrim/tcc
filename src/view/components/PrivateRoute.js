@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, withRouter} from "react-router-dom";
+import {Redirect, Route, withRouter} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 // import FirstAccess from "../FirstAccess";
@@ -17,18 +17,17 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
 
         constructor(props) {
             super(props);
-            console.log('constructor', props);
-            this.state = {
-                isAuthenticated: null
-            };
+            this.state = {isAuthenticated: null};
         }
 
         checkAuth(path) {
-            this.setState({isAuthenticated: null}, async () => {
-                const response = await this.props.checkAuth(path);
-                if (response) this.setState({isAuthenticated: response.firstAccess ? 'firstAccess' : true});
-            });
-        }
+            this.setState({isAuthenticated: null}, () => this.props.checkAuth(path)
+                .then((response) => {
+                    console.log('response', response);
+                    this.setState({isAuthenticated: response.firstAccess ? 'firstAccess' : true})
+                })
+                .catch(() => this.setState({isAuthenticated: false})));
+        };
 
         componentWillReceiveProps(nextProps) {
             console.log('>>>componentWillReceiveProps', nextProps)
@@ -43,10 +42,12 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
         render() {
             const {component: MyComponent, ...rest} = this.props;
             return <Route {...rest} render={((props) => {
-                // if (this.state.isAuthenticated === 'firstAccess') return <FirstAccess/>;
+                // if (this.state.isAuthenticated === 'firstAccess') return <FirstAccess/>;;
                 if (this.state.isAuthenticated === true) return <MyComponent {...props} />;
+                if (this.state.isAuthenticated === false) return <Redirect to="/login"/>;
                 if (this.state.isAuthenticated === null) return null;
             })}/>
         }
     }
-));
+))
+;
