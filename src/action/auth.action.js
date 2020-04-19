@@ -1,12 +1,17 @@
-import {SHOW} from "../constant/auth.constant";
+import {AUTH_MESSAGE, LOGIN_SUCCESS, SHOW, LOADING} from "../constant/auth.constant";
 import * as API from "../helper/API";
 
 export const login = (form) => async (dispatch) => {
     try {
-        const response = await API.login(form);
-        console.log('opa', response);
+        dispatch({type: LOADING});
+        const {error, payload} = await API.login(form);
+        if (error) {
+            dispatch({type: AUTH_MESSAGE, payload: payload.message});
+            dispatch({type: LOADING, payload: false});
+        } else dispatch({type: LOGIN_SUCCESS});
     } catch (e) {
-        console.log('cath', e);
+        dispatch({type: AUTH_MESSAGE, payload: 'Falha ao realizar login'});
+        dispatch({type: LOADING, payload: false});
     }
 };
 

@@ -7,7 +7,7 @@ const User = require('../model/User');
 const login = (req, res, next) => {
     passport.authenticate('local', (err, user) => {
         if (err) return next(err);
-        if (!user) return next({status: 400, message: 'Usuário ou senha inválido'});
+        if (!user) return next({message: 'Usuário ou senha inválido'});
         req.logIn(user, (err2) => {
             if (err2) return next(err2);
             const {_id, email, access, name, firstAccess, avatar} = user;

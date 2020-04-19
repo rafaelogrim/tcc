@@ -39,8 +39,15 @@
 }
 
 .nav-link {
-    font-size: 1.1em;
     padding: 0 15px !important;
     font-weight: lighter;
     color: black !important;
+}
+
+.nav-link img {
+    transition: .2s;
+}
+
+.nav-link:hover img {
+    margin-top: -4px;
 }

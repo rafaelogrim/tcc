@@ -36,7 +36,7 @@ const mongodb = require('./server/helper/mongodb');
 
     app.use(cookieParser());
 
-    app.use(express.static(path.join(__dirname, '../build')));
+    app.use(express.static(path.join(__dirname, 'build')));
     app.use(helmet());
 
     app.use('/api', routes);
