@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {Route, BrowserRouter, Switch} from "react-router-dom";
 import {bindActionCreators} from "redux";
 
+import Pet from "./view/Pet";
 import Home from "./view/Home";
 import Login from "./view/Login";
 import Register from "./view/Register";
@@ -18,6 +19,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/login" component={Login}/>
+                    <Route exact path="/pet" component={Pet}/>
                     <PrivateRoute exact path="/register" component={Register}/>
                     <PrivateRoute exact path="/adm" component={Administrative}/>
                 </Switch>

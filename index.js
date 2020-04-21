@@ -36,11 +36,15 @@ const mongodb = require('./server/helper/mongodb');
 
     app.use(cookieParser());
 
-    app.use(express.static(path.join(__dirname, 'build')));
     app.use(helmet());
 
     app.use('/api', routes);
-    app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '../build', 'index.html')));
+
+    app.use('/static/avatar', express.static(path.join(__dirname, './uploads/avatar')));
+    app.use('/static/pet', express.static(path.join(__dirname, './uploads/pets')));
+
+    app.use(express.static(path.join(__dirname, 'build')));
+    app.get('/*', (req, res) => res.sendFile(path.join(__dirname, './build', 'index.html')));
 
     app.use((req, res) => res.status(404).end());
 
