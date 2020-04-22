@@ -41,20 +41,23 @@ const create = [[
 ], async (req, res, next) => {
     try {
 
-        console.log('teste', req.body);
-        console.log('files', req.files);
+        let avatar = 'nopet.png';
 
-        if (!req.files) return next({message: 'Nenhuma foto enviada'});
+        if (req.files) {
 
-        const {file} = req.files;
+            // return next({message: 'Nenhuma foto enviada'});
 
-        const extension = path.extname(file.name).toLowerCase();
+            const {file} = req.files;
 
-        if (extension !== '.png') return next({cod: '003', message: 'A foto deve ser do tipo .png'});
+            const extension = path.extname(file.name).toLowerCase();
 
-        const avatar = uuid() + extension;
+            if (extension !== '.png') return next({cod: '003', message: 'A foto deve ser do tipo .png'});
 
-        await rename(file.path, `./uploads/pets/${avatar}`);
+            avatar = uuid() + extension;
+
+            await rename(file.path, `./uploads/pets/${avatar}`);
+
+        }
 
         await Pet.create({
             ...req.body,

@@ -3,8 +3,13 @@ import {connect} from 'react-redux'
 import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {withRouter} from "react-router-dom";
+import * as petAction from "../action/pet.action";
 
 class Pet extends Component {
+
+    componentDidMount() {
+        this.props.getPets();
+    }
 
     render() {
         return (
@@ -17,7 +22,9 @@ class Pet extends Component {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    ...petAction,
+}, dispatch);
 
 export default withRouter(connect(
     mapStateToProps,

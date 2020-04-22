@@ -7,10 +7,36 @@ import cao from './kisspng-border-collie-rough-collie-australian-shepherd-pup-5a
 import favicon from './favicon.ico';
 import {StickyContainer, Sticky} from 'react-sticky';
 
+import * as petAction from "../action/pet.action";
+
+const links = [{
+    label: 'Encontre um cãozinho',
+    to: '#pets',
+}, {
+    label: 'Como ajudar',
+    to: '/',
+}, {
+    label: 'Fale conosco',
+    to: '/',
+}, {
+    label: 'Login',
+    to: '/login',
+}];
+
 class Home extends Component {
 
+    componentDidMount() {
+        this.props.getPets();
+    }
+
+    navlink({label, to}) {
+        return <Link className="nav-link" to={to}>
+            <Image className="mr-2 float-left" height="30" src={favicon}/>{label}
+        </Link>
+    }
+
     render() {
-        console.log('oi');
+        console.log('oi', this.props);
         return (
             <StickyContainer>
                 <section className="vh-100 overflow-hidden bg-light" style={{minHeight: '600px'}}>
@@ -25,25 +51,9 @@ class Home extends Component {
                                             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                                             <Navbar.Collapse id="basic-navbar-nav">
                                                 <Nav className="ml-auto">
-                                                    <Link className="nav-link" to="/">
-                                                        <Image className="mr-2 float-left" height="30"
-                                                               src={favicon}/>
-                                                        Encontre um cãozinho
-                                                    </Link>
-                                                    <Link className="nav-link" to="/"> <Image
-                                                        className="mr-2 float-left"
-                                                        height="30"
-                                                        src={favicon}/>Como
-                                                        ajudar</Link>
-                                                    <Link className="nav-link" to="/"> <Image
-                                                        className="mr-2 float-left"
-                                                        height="30"
-                                                        src={favicon}/>Fale
-                                                        conosco</Link>
-                                                    <Link className="nav-link" to="/login">
-                                                        <Image className="mr-2 float-left"
-                                                               height="30"
-                                                               src={favicon}/>Login</Link>
+                                                    {
+                                                        links.map((e) => this.navlink(e))
+                                                    }
                                                 </Nav>
                                             </Navbar.Collapse>
                                         </Container>
@@ -79,17 +89,35 @@ class Home extends Component {
                         </Row>
                     </Container>
                 </section>
-                <section>
-                    outra sessão
+                <section id="#pets">
+                    <Container>
+                        <Row>
+                            {
+                                this.props.pets.map(({_id, avatar, name, ...e}) => {
+                                    console.log('e', e);
+                                    return (
+                                        <Col xs={6} sm={4} lg={3} key={_id}>
+                                            <Image fluid src={`/static/pet/${avatar}`}/>
+                                            <h1>{name}</h1>
+                                        </Col>
+                                    );
+                                })
+                            }
+                        </Row>
+                    </Container>
                 </section>
             </StickyContainer>
         );
     }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({Pet}) => ({
+    ...Pet
+});
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    ...petAction,
+}, dispatch);
 
 export default withRouter(connect(
     mapStateToProps,
