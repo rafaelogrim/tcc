@@ -2,7 +2,7 @@ import {connect} from "react-redux"
 import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {Link, withRouter} from "react-router-dom";
-import {Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
+import {Card, Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
 import cao from './kisspng-border-collie-rough-collie-australian-shepherd-pup-5ae753eeeb61a5.png';
 import favicon from './favicon.ico';
 import {StickyContainer, Sticky} from 'react-sticky';
@@ -89,16 +89,42 @@ class Home extends Component {
                         </Row>
                     </Container>
                 </section>
-                <section id="#pets">
+                <section id="#pets" className="py-5">
+                    outra section
+                </section>
+                <section id="#pets" className="py-5 bg-light">
                     <Container>
                         <Row>
+                            <Col>
+                                <p>
+                                    Temos {this.props.countPets} cães esperando por você. Clique para conhecê-los
+                                    melhor
+                                </p>
+                            </Col>
+                        </Row>
+                        <Row>
                             {
-                                this.props.pets.map(({_id, avatar, name, ...e}) => {
+                                this.props.carrousel.map(({_id, avatar, name, ...e}) => {
                                     console.log('e', e);
+                                    const transform = `rotate(${Math.floor(Math.random() * (6 - -6 + 1) + -6)}deg)`;
                                     return (
-                                        <Col xs={6} sm={4} lg={3} key={_id}>
-                                            <Image fluid src={`/static/pet/${avatar}`}/>
-                                            <h1>{name}</h1>
+                                        <Col xs={12} sm={6} lg={4} key={_id} className="px-4">
+                                            <Link as={Card} className="col-12 pet my-4 p-3 d-block shadow-sm bg-white"
+                                                  style={{transform}}>
+                                                <Card.Body style={{
+                                                    height: '300px',
+                                                    backgroundImage: `url(${`/static/pet/${avatar}`})`,
+                                                    backgroundRepeat: 'no-repeat',
+                                                    backgroundSize: 'cover',
+                                                    backgroundPosition: 'center'
+                                                }}>
+                                                    {/*<Card.Img src={} alt={name}/>*/}
+                                                </Card.Body>
+                                                <Card.Body className="py-2 px-0 text-center">
+                                                    <Card.Title className="mb-0 font-weight-bold">{name}</Card.Title>
+                                                    <Card.Text className="mb-0 text-secondary">macho, femea</Card.Text>
+                                                </Card.Body>
+                                            </Link>
                                         </Col>
                                     );
                                 })

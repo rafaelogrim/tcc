@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const random = require('mongoose-simple-random');
 
 const schema = new mongoose.Schema({
     name: String,
@@ -16,5 +17,7 @@ const schema = new mongoose.Schema({
 }, {
     timestamps: true,
 });
+
+schema.plugin(random);
 
 module.exports = mongoose.connection.model('Pet', schema);

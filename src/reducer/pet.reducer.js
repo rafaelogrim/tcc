@@ -1,13 +1,14 @@
 import {GET_PET_SUCCESS} from "../constant/pet.constant";
 
 const initialState = {
-    pets: [],
+    countPets: 0,
+    carrousel: [],
 };
 
 const _GET_PET_SUCCESS = (state, {payload}) => {
     return {
         ...state,
-        pets: payload,
+        ...payload,
     };
 };
 

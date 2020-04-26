@@ -10,19 +10,18 @@ const {v4: uuid} = require('uuid');
 
 const Pet = require('../model/Pet');
 
-// name: String,
-// size: String,
-// vaccinated: Boolean,
-// castrated: Boolean,
-// dewormed: Boolean,
-// age: String,
-// gender: String,
-// description: String,
+const getRandomPets = () => new Promise(((resolve, reject) => Pet.findRandom({}, {
+    createdAt: 0,
+    updatedAt: 0
+}, {limit: 3}, (err, result) => (err) ? reject(err) : resolve(result))))
 
 const get = async (req, res, next) => {
     try {
 
-        res.finish(await Pet.find({}).select({createdAt: 0, updatedAt: 0}).lean());
+        res.finish({
+            countPets: await Pet.countDocuments(),
+            carrousel: await getRandomPets(),
+        });
 
     } catch (e) {
         next(e);
@@ -51,7 +50,7 @@ const create = [[
 
             const extension = path.extname(file.name).toLowerCase();
 
-            if (extension !== '.png') return next({cod: '003', message: 'A foto deve ser do tipo .png'});
+            // if (extension !== '.png' ) return next({cod: '003', message: 'A foto deve ser do tipo .png'});
 
             avatar = uuid() + extension;
 
