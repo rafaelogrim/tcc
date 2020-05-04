@@ -11,6 +11,7 @@ import Login from "./view/Login";
 import Register from "./view/Register";
 import Administrative from "./view/Administrative";
 import PrivateRoute from './view/components/PrivateRoute';
+import {Button, Modal} from "react-bootstrap";
 
 class App extends Component {
     render() {
@@ -19,7 +20,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/login" component={Login}/>
-                    <Route exact path="/pet" component={Pet}/>
+                    <Route path="/pet" component={Pet}/>
                     <PrivateRoute exact path="/register" component={Register}/>
                     <PrivateRoute exact path="/adm" component={Administrative}/>
                 </Switch>

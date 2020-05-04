@@ -4,24 +4,11 @@ import {bindActionCreators} from "redux";
 import {Link, withRouter} from "react-router-dom";
 import {Card, Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
 import cao from './kisspng-border-collie-rough-collie-australian-shepherd-pup-5ae753eeeb61a5.png';
-import favicon from './favicon.ico';
 import {StickyContainer, Sticky} from 'react-sticky';
+import MyNav from "./components/Nav";
 
 import * as petAction from "../action/pet.action";
 
-const links = [{
-    label: 'Encontre um cãozinho',
-    to: '#pets',
-}, {
-    label: 'Como ajudar',
-    to: '/',
-}, {
-    label: 'Fale conosco',
-    to: '/',
-}, {
-    label: 'Login',
-    to: '/login',
-}];
 
 class Home extends Component {
 
@@ -29,37 +16,17 @@ class Home extends Component {
         this.props.getPets();
     }
 
-    navlink({label, to}) {
-        return <Link className="nav-link" to={to}>
-            <Image className="mr-2 float-left" height="30" src={favicon}/>{label}
-        </Link>
-    }
-
     render() {
         console.log('oi', this.props);
         return (
             <StickyContainer>
-                <section className="vh-100 overflow-hidden bg-light" style={{minHeight: '600px'}}>
-                    <Sticky disableCompensation>
+                <section className="vh-100 overflow-hidden" style={{
+                    minHeight: '600px',
+                    background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(221,216,214,1) 100%)'
+                }}>
+                    <Sticky>
                         {({style, distanceFromTop}) => (
-                            <div style={{...style, zIndex: 100}}>
-                                <header style={{transition: '.2s'}}
-                                        className={`w-100 ${distanceFromTop !== 0 ? 'bg-white shadow-sm' : ''}`}>
-                                    <Navbar bg="transparent" expand="lg" className="shadow-">
-                                        <Container>
-                                            <Navbar.Brand href="#home">Projeto Inst</Navbar.Brand>
-                                            <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                                            <Navbar.Collapse id="basic-navbar-nav">
-                                                <Nav className="ml-auto">
-                                                    {
-                                                        links.map((e) => this.navlink(e))
-                                                    }
-                                                </Nav>
-                                            </Navbar.Collapse>
-                                        </Container>
-                                    </Navbar>
-                                </header>
-                            </div>
+                            <div style={{...style, zIndex: 100}}><MyNav distanceFromTop={distanceFromTop}/></div>
                         )}
                     </Sticky>
                     <Container>
@@ -70,9 +37,8 @@ class Home extends Component {
                                     seu <span className="d-md-block">amigo <a href="#"
                                                                               style={{color: '#5d4738'}}>aqui!</a></span>
                                 </h1>
-                                <p className="font-weight-light mt-2" style={{fontSize: '1.2em'}}>Resgatamos animais
-                                    indefesos das ruas e cuidamos <span className="d-md-block">até encontrarem
-                                    seus verdadeiros lares</span></p>
+                                <p className="font-weight-light mt-2 col-10 pl-0" style={{fontSize: '1.2em'}}>Resgatamos
+                                    animais indefesos das ruas e cuidamos até encontrarem seus verdadeiros lares</p>
                             </Col>
                             <Col md={5} className="align-self-end text-center text-md-right">
                                 <div className="position-absolute ml-md-n5"
@@ -92,7 +58,9 @@ class Home extends Component {
                 <section id="#pets" className="py-5">
                     outra section
                 </section>
-                <section id="#pets" className="py-5 bg-light">
+                <section id="#pets" className="py-5" style={{
+                    background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(60,151,238,1) 100%)'
+                }}>
                     <Container>
                         <Row>
                             <Col>

@@ -13,14 +13,15 @@ const Pet = require('../model/Pet');
 const getRandomPets = () => new Promise(((resolve, reject) => Pet.findRandom({}, {
     createdAt: 0,
     updatedAt: 0
-}, {limit: 3}, (err, result) => (err) ? reject(err) : resolve(result))))
+}, {limit: 3}, (err, result) => (err) ? reject(err) : resolve(result))));
 
 const get = async (req, res, next) => {
     try {
 
         res.finish({
-            countPets: await Pet.countDocuments(),
+            pets: await Pet.find(),
             carrousel: await getRandomPets(),
+            countPets: await Pet.countDocuments(),
         });
 
     } catch (e) {
