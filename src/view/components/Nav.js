@@ -28,9 +28,13 @@ const MyNav = (props) => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
                             {
-                                links.map(({to, label}, i) => (<Link className="nav-link" to={to} key={i}>
-                                    <Image className="mr-2 float-left" height="30" src={favicon}/>{label}
-                                </Link>))
+                                links.map(({to, label}, i) => (
+                                    <Link
+                                        className="nav-link text-black-55 font-weight-bolder"
+                                        to={to}
+                                        key={i}>
+                                        <Image className="mr-2 float-left" height="32" src={favicon}/>{label}
+                                    </Link>))
                             }
                         </Nav>
                     </Navbar.Collapse>

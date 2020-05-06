@@ -12,6 +12,7 @@ import reducers from './reducer';
 import 'jquery/dist/jquery.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import 'material-icons/iconfont/material-icons.css';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
