@@ -13,6 +13,8 @@ router.use(async (req, res, next) => {
 router.all('/isAuthenticated', isAuthenticated, (req, res) => res.finish(req.user));
 router.post('/login', login);
 
+router.route('/pet/count').get(pet.count);
+router.route('/pet/filter').get(pet.filter);
 router.route('/pet/:id?')
     .get(pet.get)
     .post(/*isAuthenticated,*/ multiparty({}), pet.create)

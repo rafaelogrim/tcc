@@ -2,7 +2,7 @@ import {connect} from "react-redux"
 import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {Link, withRouter} from "react-router-dom";
-import {Card, Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
+import {Card, Col, Container, Image, Row} from "react-bootstrap";
 import cao from './kisspng-border-collie-rough-collie-australian-shepherd-pup-5ae753eeeb61a5.png';
 import {StickyContainer, Sticky} from 'react-sticky';
 import MyNav from "./components/Nav";
@@ -34,8 +34,7 @@ class Home extends Component {
                             <Col md={7} className="align-self-center text-center text-md-left">
                                 <h1 className="text-uppercase font-weight-bold"
                                     style={{fontSize: '3.5em', color: '#404040'}}>Encontre
-                                    seu <span className="d-md-block">amigo <a href="#"
-                                                                              style={{color: '#5d4738'}}>aqui!</a></span>
+                                    seu <span className="d-md-block">amigo <span style={{color: '#5d4738'}}>aqui!</span></span>
                                 </h1>
                                 <p className="font-weight-light mt-2 col-10 pl-0" style={{fontSize: '1.2em'}}>Resgatamos
                                     animais indefesos das ruas e cuidamos até encontrarem seus verdadeiros lares</p>

@@ -11,7 +11,6 @@ import Login from "./view/Login";
 import Register from "./view/Register";
 import Administrative from "./view/Administrative";
 import PrivateRoute from './view/components/PrivateRoute';
-import {Button, Modal} from "react-bootstrap";
 
 class App extends Component {
     render() {
@@ -29,7 +28,7 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = () => ({
     // paths: Auth.paths
 });
 

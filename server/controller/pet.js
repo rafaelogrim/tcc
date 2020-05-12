@@ -1,4 +1,4 @@
-const {param, body} = require('express-validator');
+const {param, body, query} = require('express-validator');
 const {validate} = require('../helper/util');
 const moment = require('moment');
 const mongoose = require('mongoose');
@@ -15,11 +15,24 @@ const getRandomPets = () => new Promise(((resolve, reject) => Pet.findRandom({},
     updatedAt: 0
 }, {limit: 3}, (err, result) => (err) ? reject(err) : resolve(result))));
 
-const get = async (req, res, next) => {
+const get = [[
+    query('filter').optional(),
+    query('limit').optional(),
+], async (req, res, next) => {
     try {
 
+        console.log('query', req.query);
+        const {limit, skip, filter} = req.query;
+
+        let mongoFilter = {};
+        if (filter) {
+            if (filter.length > 0) {
+
+            }
+        }
+
         res.finish({
-            pets: await Pet.find(),
+            pets: await Pet.find().limit(limit ? parseInt(limit) : 0),
             carrousel: await getRandomPets(),
             countPets: await Pet.countDocuments(),
         });
@@ -27,11 +40,11 @@ const get = async (req, res, next) => {
     } catch (e) {
         next(e);
     }
-};
+}];
 
 const create = [[
     body('name').exists(),
-    body('size').exists().isIn(['pp', 'p', 'm', 'g', 'gg']),
+    body('size').exists().isIn(['p', 'm', 'g']),
     body('vaccinated').exists().isBoolean(),
     body('castrated').exists().isBoolean(),
     body('dewormed').exists().isBoolean(),
@@ -72,7 +85,43 @@ const create = [[
     }
 }];
 
+const filter = [[
+    query('age').exists(),
+    query('size').exists(),
+    query('gender').exists(),
+], async (req, res, next) => {
+    try {
+
+        const {age, size, gender, limit} = req.query;
+
+        const $and = [];
+        if (age) $and.push({$or: age.split(',').map((e) => ({age: e}))});
+        if (size) $and.push({$or: size.split(',').map((e) => ({size: e}))});
+        if (gender) $and.push({$or: gender.split(',').map((e) => ({gender: e}))});
+
+        const f = $and.length > 0 ? {$and} : {};
+
+        res.finish({
+            count: await Pet.countDocuments(f),
+            documents: await Pet.find(f).limit(parseInt(limit))
+        });
+
+    } catch (e) {
+        next(e);
+    }
+}];
+
+const count = async (req, res, next) => {
+    try {
+        res.finish(await Pet.countDocuments());
+    } catch (e) {
+        next(e);
+    }
+};
+
 module.exports = {
     get,
     create,
+    filter,
+    count,
 };
