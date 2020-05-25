@@ -13,6 +13,8 @@ import {Field, reduxForm, formValueSelector} from "redux-form";
 import {CheckBox, Text, TextArea} from "./components/ReduxFormControl";
 import ReactLoading from "react-loading";
 import {forEach} from "react-bootstrap/cjs/ElementChildren";
+import {pagePetLimit} from "../action/pet.action";
+import Footer from "./components/Footer";
 
 const _gender = {
     m: 'macho',
@@ -195,23 +197,25 @@ const ViewPetModal = connectModal({name: 'ViewPetModal', destroyOnHide: true})(c
 class Pet extends Component {
 
     componentDidMount() {
-        this.props.filter();
+        this.props.filter(this.props.pagePetLimit);
         this.props.getPetCount();
     }
 
     render() {
 
-        console.log('render', this.props);
-
-        const pages = Math.ceil(this.props.filterCount / 4);
+        const pages = Math.ceil(this.props.filterCount / this.props.pagePetLimit);
         const itens = [];
+        const changePage = (active, page) => active ? null : this.props.changePage(this.props.pagePetLimit, page, this.props.lastPetFilterPath);
+
         for (let i = 0; i < pages; i++) {
-            itens.push(<Pagination.Item key={i} active={false}>{i + 1}</Pagination.Item>)
+            const active = this.props.paginationActualPage === i;
+            itens.push(<Pagination.Item key={i} active={active}
+                                        onClick={changePage.bind(this, active, i)}>{i + 1}</Pagination.Item>)
         }
 
         return (
             <>
-                <ViewPetModal hide={this.props.hide}/>,
+                <ViewPetModal hide={this.props.hide}/>
                 <StickyContainer className="bg-light">
                     <section className="bg-light" style={{
                         height: '500px',
@@ -272,7 +276,8 @@ class Pet extends Component {
                                 <Col>
                                     <Card id="petFilter" className="shadow-sm">
                                         <Card.Body>
-                                            <PetFilterForm onSubmit={this.props.filter}/>
+                                            <PetFilterForm
+                                                onSubmit={this.props.filter.bind(this, this.props.pagePetLimit)}/>
                                         </Card.Body>
                                     </Card>
                                 </Col>
@@ -323,20 +328,20 @@ class Pet extends Component {
                                 this.props.pets.length > 0 && <Row>
                                     <Col>
                                         <Pagination className="justify-content-center">
-                                            <Pagination.First disabled={this.props.filterActivePage === 0}/>
-                                            <Pagination.Prev disabled={this.props.filterActivePage === 0}/>
+                                            <Pagination.First disabled={this.props.paginationActualPage === 0}/>
+                                            <Pagination.Prev disabled={this.props.paginationActualPage === 0}
+                                                             onClick={() => this.props.previousPage(this.props.pagePetLimit, this.props.paginationActualPage, this.props.lastPetFilterPath)}/>
                                             {itens}
-                                            <Pagination.Next disabled={this.props.filterActivePage === pages - 1}
-                                                             onClick={() => {
-
-                                                             }}/>
-                                            <Pagination.Last disabled={this.props.filterActivePage === pages - 1}/>
+                                            <Pagination.Next disabled={this.props.paginationActualPage === pages - 1}
+                                                             onClick={() => this.props.nextPage(this.props.pagePetLimit, this.props.paginationActualPage, this.props.lastPetFilterPath)}/>
+                                            <Pagination.Last disabled={this.props.paginationActualPage === pages - 1}/>
                                         </Pagination>
                                     </Col>
                                 </Row>
                             }
                         </Container>
                     </section>
+                    <Footer/>
                 </StickyContainer>
             </>
         )

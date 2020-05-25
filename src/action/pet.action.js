@@ -1,5 +1,7 @@
 import * as API from "../helper/API";
-import {GET_PET_SUCCESS, GET_PETCOUNT_SUCCESS} from "../constant/pet.constant";
+import {GET_PET_SUCCESS, GET_PETCOUNT_SUCCESS, PAGINATION_FILTER, PAGINATION_SET_PAGE} from "../constant/pet.constant";
+
+// const pagePetLimit = 12;
 
 export const getPetCount = () => async (dispatch) => {
     try {
@@ -11,7 +13,18 @@ export const getPetCount = () => async (dispatch) => {
     }
 };
 
-export const filter = (fields = {}, page = 0) => async (dispatch) => {
+const getPets = async (dispatch, pagePetLimit, lastPetFilterPath, setPage, skip) => {
+    const {error, payload} = await API.get(`/pet/filter?limit=${pagePetLimit}&skip=${skip || 0}&${lastPetFilterPath}`);
+    if (error) console.log('erro', payload);
+    else {
+        console.log('voltou', payload);
+        dispatch({type: PAGINATION_FILTER, payload: lastPetFilterPath});
+        dispatch({type: PAGINATION_SET_PAGE, payload: setPage});
+        dispatch({type: GET_PET_SUCCESS, payload});
+    }
+}
+
+export const filter = (pagePetLimit, fields = {}, page = 0) => async (dispatch) => {
     try {
 
         const query = [];
@@ -32,21 +45,34 @@ export const filter = (fields = {}, page = 0) => async (dispatch) => {
         if (fields.size_g) size.push('g');
         if (size.length > 0) query.push('size=' + size.join(','))
 
-        const {error, payload} = await API.get(`/pet/filter?limit=4&${query.join('&')}`);
-        if (error) console.log('erro', payload);
-        else {
-            console.log('voltou', payload);
-            dispatch({type: GET_PET_SUCCESS, payload});
-        }
+        await getPets(dispatch, pagePetLimit, query.join('&'), 0);
+
     } catch (e) {
 
     }
 }
 
-export const nextPage = () => {
+export const nextPage = (pagePetLimit, actualPage, lastPetFilterPath) => async (dispatch) => {
     try {
-
+        await getPets(dispatch, pagePetLimit, lastPetFilterPath, actualPage + 1, (actualPage + 1) * pagePetLimit);
     } catch (e) {
 
     }
 }
+
+export const previousPage = (pagePetLimit,actualPage, lastPetFilterPath) => async (dispatch) => {
+    try {
+        await getPets(dispatch, pagePetLimit, lastPetFilterPath, actualPage - 1, (actualPage - 1) * pagePetLimit);
+    } catch (e) {
+
+    }
+}
+
+export const changePage = (pagePetLimit, page, lastPetFilterPath) => async (dispatch) => {
+    try {
+        await getPets(dispatch, pagePetLimit, lastPetFilterPath, page, page * pagePetLimit);
+    } catch (e) {
+
+    }
+};
+

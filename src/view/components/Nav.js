@@ -8,7 +8,7 @@ const links = [{
     to: '/pet',
 }, {
     label: 'Como ajudar',
-    to: '/',
+    to: '/help',
 }, {
     label: 'Fale conosco',
     to: '/',

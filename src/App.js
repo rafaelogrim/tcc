@@ -8,6 +8,7 @@ import {bindActionCreators} from "redux";
 import Pet from "./view/Pet";
 import Home from "./view/Home";
 import Login from "./view/Login";
+import HelpUs from "./view/HelpUs";
 import Register from "./view/Register";
 import Administrative from "./view/Administrative";
 import PrivateRoute from './view/components/PrivateRoute';
@@ -20,6 +21,7 @@ class App extends Component {
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/login" component={Login}/>
                     <Route path="/pet" component={Pet}/>
+                    <Route path="/help" component={HelpUs}/>
                     <PrivateRoute exact path="/register" component={Register}/>
                     <PrivateRoute exact path="/adm" component={Administrative}/>
                 </Switch>

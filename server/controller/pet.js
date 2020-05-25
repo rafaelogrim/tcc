@@ -92,7 +92,7 @@ const filter = [[
 ], async (req, res, next) => {
     try {
 
-        const {age, size, gender, limit} = req.query;
+        const {age, size, gender, limit, skip} = req.query;
 
         const $and = [];
         if (age) $and.push({$or: age.split(',').map((e) => ({age: e}))});
@@ -103,7 +103,7 @@ const filter = [[
 
         res.finish({
             count: await Pet.countDocuments(f),
-            documents: await Pet.find(f).limit(parseInt(limit))
+            documents: await Pet.find(f).limit(parseInt(limit)).skip(skip ? parseInt(skip) : 0)
         });
 
     } catch (e) {

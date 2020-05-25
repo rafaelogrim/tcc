@@ -8,12 +8,13 @@ import {StickyContainer, Sticky} from 'react-sticky';
 import MyNav from "./components/Nav";
 
 import * as petAction from "../action/pet.action";
+import Footer from "./components/Footer";
 
 
 class Home extends Component {
 
     componentDidMount() {
-        this.props.getPets();
+        // this.props.getPets();
     }
 
     render() {
@@ -42,7 +43,7 @@ class Home extends Component {
                             <Col md={5} className="align-self-end text-center text-md-right">
                                 <div className="position-absolute ml-md-n5"
                                      style={{
-                                         top: '55%',
+                                         top: '45%',
                                          fontSize: '4.5em',
                                          color: '#5d4738',
                                          textShadow: '2px 2px 8px #f8f9fa',
@@ -55,7 +56,14 @@ class Home extends Component {
                     </Container>
                 </section>
                 <section id="#pets" className="py-5">
-                    outra section
+                    <form action="https://pagseguro.uol.com.br/checkout/v2/donation.html" method="post">
+                        <input type="hidden" name="currency" value="BRL"/>
+                        <input type="hidden" name="receiverEmail" value="rafael.ogrim@gmail.com"/>
+                        <input type="hidden" name="iot" value="button"/>
+                        <input type="image"
+                               src="https://stc.pagseguro.uol.com.br/public/img/botoes/doacoes/120x53-doar.gif"
+                               name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!"/>
+                    </form>
                 </section>
                 <section id="#pets" className="py-5" style={{
                     background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(60,151,238,1) 100%)'
@@ -99,6 +107,7 @@ class Home extends Component {
                         </Row>
                     </Container>
                 </section>
+                <Footer/>
             </StickyContainer>
         );
     }
