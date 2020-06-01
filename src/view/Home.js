@@ -2,7 +2,7 @@ import {connect} from "react-redux"
 import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {Link, withRouter} from "react-router-dom";
-import {Card, Col, Container, Image, Row} from "react-bootstrap";
+import {Card, Col, Container, Image, ResponsiveEmbed, Row} from "react-bootstrap";
 import cao from './kisspng-border-collie-rough-collie-australian-shepherd-pup-5ae753eeeb61a5.png';
 import {StickyContainer, Sticky} from 'react-sticky';
 import MyNav from "./components/Nav";
@@ -14,60 +14,44 @@ import Footer from "./components/Footer";
 class Home extends Component {
 
     componentDidMount() {
-        // this.props.getPets();
+        window.scrollTo(0, 1);
+        window.scrollTo(0, 0);
     }
 
     render() {
         console.log('oi', this.props);
         return (
+
             <StickyContainer>
-                <section className="vh-100 overflow-hidden" style={{
-                    minHeight: '600px',
-                    background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(221,216,214,1) 100%)'
-                }}>
-                    <Sticky>
-                        {({style, distanceFromTop}) => (
-                            <div style={{...style, zIndex: 100}}><MyNav distanceFromTop={distanceFromTop}/></div>
-                        )}
+                <section className="vh-100 overflow-hidden" style={{minHeight: '600px'}}>
+                    <Sticky disableCompensation={true}>
+                        {({style, distanceFromTop}) => <div style={{...style, zIndex: 100}}>
+                            <MyNav home={true} distanceFromTop={distanceFromTop}/>
+                        </div>}
                     </Sticky>
-                    <Container>
-                        <Row>
-                            <Col md={7} className="align-self-center text-center text-md-left">
-                                <h1 className="text-uppercase font-weight-bold"
-                                    style={{fontSize: '3.5em', color: '#404040'}}>Encontre
-                                    seu <span className="d-md-block">amigo <span style={{color: '#5d4738'}}>aqui!</span></span>
-                                </h1>
-                                <p className="font-weight-light mt-2 col-10 pl-0" style={{fontSize: '1.2em'}}>Resgatamos
-                                    animais indefesos das ruas e cuidamos até encontrarem seus verdadeiros lares</p>
-                            </Col>
-                            <Col md={5} className="align-self-end text-center text-md-right">
-                                <div className="position-absolute ml-md-n5"
-                                     style={{
-                                         top: '45%',
-                                         fontSize: '4.5em',
-                                         color: '#5d4738',
-                                         textShadow: '2px 2px 8px #f8f9fa',
-                                         fontFamily: 'Trattatello, fantasy'
-                                     }}>Spyke
-                                </div>
-                                <Image fluid src={cao} alt="Image"/>
-                            </Col>
-                        </Row>
-                    </Container>
+                    <video className="vw-100" autoPlay muted loop id="myVideo">
+                        <source src={require('./images/bg.mp4')} type="video/mp4"/>
+                    </video>
+
+                    <div className="position-absolute h-100 w-100 d-flex text-white"
+                         style={{top: 0, minHeight: '600px'}}>
+                        <Container className="align-self-center">
+                            <Row>
+                                <Col>
+                                    <h1 className="text-uppercase font-weight-bold Amatic-SC"
+                                        style={{fontSize: '6em'}}>Encontre seu
+                                        <span className="d-block">amigo aqui!</span>
+                                    </h1>
+                                    <p className="font-weight-light mt-4"
+                                       style={{fontSize: '1.3em'}}>Resgatamos
+                                        animais indefesos das ruas e cuidamos até encontrarem seus verdadeiros
+                                        lares</p>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </div>
                 </section>
-                <section id="#pets" className="py-5">
-                    <form action="https://pagseguro.uol.com.br/checkout/v2/donation.html" method="post">
-                        <input type="hidden" name="currency" value="BRL"/>
-                        <input type="hidden" name="receiverEmail" value="rafael.ogrim@gmail.com"/>
-                        <input type="hidden" name="iot" value="button"/>
-                        <input type="image"
-                               src="https://stc.pagseguro.uol.com.br/public/img/botoes/doacoes/120x53-doar.gif"
-                               name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!"/>
-                    </form>
-                </section>
-                <section id="#pets" className="py-5" style={{
-                    background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(60,151,238,1) 100%)'
-                }}>
+                <section id="#pets" className="py-5 bg-white">
                     <Container>
                         <Row>
                             <Col>

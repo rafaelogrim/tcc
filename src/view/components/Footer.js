@@ -1,10 +1,13 @@
-import {Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import favicon from "../favicon.ico";
+import {Col, Container, Row} from "react-bootstrap";
 import React from "react";
-import {SocialIcon} from 'react-social-icons';
+import {SocialIcon} from "react-social-icons";
 
-const Footer = (props) => {
+const twitter = 'https://www.twitter.com';
+const instagram = 'https://www.instagram.com';
+const facebook = 'https://www.facebook.com';
+const youtube = 'https://www.youtube.com';
+
+const Footer = () => {
     return (
         <footer className="bg-dark text-white-50 py-3" style={{fontSize: '.9em'}}>
             <Container>
@@ -18,17 +21,13 @@ const Footer = (props) => {
                     <Col>
                         <h6 className="text-white font-weight-light">Redes sociais</h6>
                         <SocialIcon className="mr-2 rounded-circle" fgColor="#fff" network="twitter"
-                                    url="https://www.twitter.com"
-                                    style={{height: 27, width: 27, backgroundColor: 'white'}}/>
+                                    url={twitter} style={{height: 27, width: 27, backgroundColor: 'white'}}/>
                         <SocialIcon className="mr-2 rounded-circle" fgColor="#fff" network="instagram"
-                                    url="https://www.instagram.com"
-                                    style={{height: 27, width: 27}}/>
+                                    url={instagram} style={{height: 27, width: 27}}/>
                         <SocialIcon className="mr-2 rounded-circle" fgColor="#fff" network="facebook"
-                                    url="https://www.facebook.com"
-                                    style={{height: 27, width: 27}}/>
+                                    url={facebook} style={{height: 27, width: 27}}/>
                         <SocialIcon className="mr-2 rounded-circle" fgColor="#fff" network="youtube"
-                                    url="https://www.youtube.com"
-                                    style={{height: 27, width: 27}}/>
+                                    url={youtube} style={{height: 27, width: 27}}/>
                     </Col>
                 </Row>
             </Container>
