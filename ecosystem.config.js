@@ -13,7 +13,7 @@ module.exports = {
             MONGO_URI: 'mongodb://localhost:27017/projeto-inst',
         },
         env_production: {
-            PORT: 8080,
+            PORT: 3000,
             NODE_ENV: 'production',
             MONGO_URI: 'mongodb://projetoinst:9oZwKeF9QSYu2hDiDjuuxh8pYft49gclWEgsKdUpA1d7rrYCAxD3iPdbWWuyurcYhpBqndJ0LGo0nvq1t39ldg==@projetoinst.documents.azure.com:10255/?ssl=true',
         }
