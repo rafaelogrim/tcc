@@ -68,16 +68,9 @@
     transition: .5s;
 }
 
-.nav-link:hover {
-    /*color: rgba(0, 0, 0, 0.8) !important;*/
-}
 
 .nav-link img {
     transition: .2s;
-}
-
-.nav-link:hover img {
-    margin-top: -4px;
 }
 
 .pet {
@@ -106,4 +99,66 @@
     font-size: 1.3em;
     color: rgb(147, 49, 1);
     letter-spacing: .05em;
+}
+
+.bm-cross-button {
+    height: 24px;
+    width: 24px;
+}
+
+.bm-cross {
+    background: #f5d05a;
+}
+
+.bm-cross-button {
+    right: 15px !important;
+}
+
+.bm-cross-button button {
+    outline: none !important;
+}
+
+.bm-menu {
+    background: #ffffff;
+}
+
+.bm-overlay {
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.bm-item:focus {
+    outline: none !important;
+}
+
+.bm-item-list a {
+    text-decoration: none !important;
+}
+
+.navbar-toggler {
+    outline: none !important;
+}
+
+
+#myHeader #petImage {
+    height: 300px;
+}
+
+@media screen and (min-width: 1200px) {
+    #sectionHome {
+        background: none !important;
+    }
+
+    .nav-link:hover img {
+        margin-top: -4px;
+    }
+
+    #myHeader #petImage {
+        height: 500px;
+    }
+
+    #myHeader {
+        height: 500px;
+    }
+
 }

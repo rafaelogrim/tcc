@@ -73,21 +73,21 @@ const PetContactForm = reduxForm({form: 'PetContactForm'})((props) => (<Form onS
 
 const PetFilterForm = reduxForm({form: 'PetFilterForm'})((props) => (<Form onSubmit={props.handleSubmit}>
     <Row>
-        <Col>
+        <Col xs={12} md={3} className="my-2 my-md-0">
             <Form.Label className="d-block mb-1">Sexo</Form.Label>
             <Field className="Bangers d-inline-block mr-3" name="gender_f" label="fêmea" id="gender_f"
                    type="checkbox" component={CheckBox}/>
             <Field className="Bangers d-inline-block" name="gender_m" label="macho" id="gender_m"
                    type="checkbox" component={CheckBox}/>
         </Col>
-        <Col>
+        <Col xs={12} md={3} className="my-2 my-md-0">
             <Form.Label className="d-block mb-1">Idade</Form.Label>
             <Field className="Bangers d-inline-block mr-3" name="age_young" label="jovem" id="age_young"
                    type="checkbox" component={CheckBox}/>
             <Field className="Bangers d-inline-block" name="age_adult" label="adulto" id="age_adult"
                    type="checkbox" component={CheckBox}/>
         </Col>
-        <Col md="auto">
+        <Col xs={12} md={4} className="my-2 my-md-0">
             <Form.Label className="d-block mb-1">Porte</Form.Label>
             <Field className="Bangers d-inline-block mr-3" name="size_p" label="pequeno" id="size_p"
                    type="checkbox" component={CheckBox}/>
@@ -96,18 +96,13 @@ const PetFilterForm = reduxForm({form: 'PetFilterForm'})((props) => (<Form onSub
             <Field className="Bangers d-inline-block" name="size_g" label="grande" id="size_g"
                    type="checkbox" component={CheckBox}/>
         </Col>
-        <Col md="auto" className="d-flex align-items-center">
-            <Button type="submit" size="sm" className="material-icons">search</Button>
+        <Col xs={12} md={2} className="d-flex align-items-center my-2 my-md-0">
+            <Button type="submit" size="sm" className="material-icons mx-auto mx-lg-0 ml-lg-auto">search</Button>
         </Col>
     </Row>
 </Form>))
 
 const ViewPetModal = connectModal({name: 'ViewPetModal', destroyOnHide: true})(class extends Component {
-
-    constructor(props) {
-        super(props);
-        console.log('modal props', props);
-    }
 
     render() {
         const {avatar, name, gender, age, size, description, vaccinated, castrated, dewormed} = this.props;
@@ -237,6 +232,7 @@ const PaginationBlock = (props) => {
 class Pet extends Component {
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         this.props.filter(this.props.pagePetLimit);
         this.props.getPetCount();
     }

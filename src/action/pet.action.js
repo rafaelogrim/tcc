@@ -17,7 +17,6 @@ const getPets = async (dispatch, pagePetLimit, lastPetFilterPath, setPage, skip)
     const {error, payload} = await API.get(`/pet/filter?limit=${pagePetLimit}&skip=${skip || 0}&${lastPetFilterPath}`);
     if (error) console.log('erro', payload);
     else {
-        console.log('voltou', payload);
         dispatch({type: PAGINATION_FILTER, payload: lastPetFilterPath});
         dispatch({type: PAGINATION_SET_PAGE, payload: setPage});
         dispatch({type: GET_PET_SUCCESS, payload});

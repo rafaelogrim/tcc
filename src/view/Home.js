@@ -2,8 +2,7 @@ import {connect} from "react-redux"
 import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {Link, withRouter} from "react-router-dom";
-import {Card, Col, Container, Image, ResponsiveEmbed, Row} from "react-bootstrap";
-import cao from './kisspng-border-collie-rough-collie-australian-shepherd-pup-5ae753eeeb61a5.png';
+import {Card, Col, Container, Row} from "react-bootstrap";
 import {StickyContainer, Sticky} from 'react-sticky';
 import MyNav from "./components/Nav";
 
@@ -19,27 +18,30 @@ class Home extends Component {
     }
 
     render() {
-        console.log('oi', this.props);
         return (
-
             <StickyContainer>
-                <section className="vh-100 overflow-hidden" style={{minHeight: '600px'}}>
+                <section id="sectionHome" className="vh-100 overflow-hidden" style={{
+                    minHeight: '600px',
+                    background: `url(${require('./images/bghome.PNG')}) no-repeat center center`,
+                    backgroundSize: 'cover',
+                }}>
                     <Sticky disableCompensation={true}>
                         {({style, distanceFromTop}) => <div style={{...style, zIndex: 100}}>
                             <MyNav home={true} distanceFromTop={distanceFromTop}/>
                         </div>}
                     </Sticky>
-                    <video className="vw-100" autoPlay muted loop id="myVideo">
+
+                    <video className="vw-100 d-none d-xl-block" autoPlay muted loop id="myVideo">
                         <source src={require('./images/bg.mp4')} type="video/mp4"/>
                     </video>
 
                     <div className="position-absolute h-100 w-100 d-flex text-white"
                          style={{top: 0, minHeight: '600px'}}>
-                        <Container className="align-self-center">
+                        <Container className="align-self-center pt-5">
                             <Row>
                                 <Col>
-                                    <h1 className="text-uppercase font-weight-bold Amatic-SC"
-                                        style={{fontSize: '6em'}}>Encontre seu
+                                    <h1 className="text-uppercase font-weight-bold Amatic-SC pt-5"
+                                        style={{fontSize: '5em'}}>Encontre seu
                                         <span className="d-block">amigo aqui!</span>
                                     </h1>
                                     <p className="font-weight-light mt-4"
